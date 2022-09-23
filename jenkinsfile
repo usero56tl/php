@@ -4,9 +4,14 @@ node {
         checkout scm
     }
     stage('Build') {
-        app = docker.build("usero/httpd")
+        app = docker.build("usero56tl/httpd:1.0")
     }
     stage('Test image') {
-        withDockerContainer("usero/httpd"){ sh "echo 'hello world'" }
+        withDockerContainer("usero56tl/httpd:1.0"){ sh "echo 'hello world'" }
+    }
+    stage('Pushing to Docker hub') {
+        withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
+            app.push()
+        }
     }
 }
