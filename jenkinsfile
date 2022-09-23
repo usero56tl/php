@@ -15,9 +15,9 @@ node {
         }
     }
     stage('Delete local image') {
-        sh 'docker image rm usero56tl/httpd'
+        sh 'docker image rm usero56tl/httpd:1.0'
     }
     stage('Test image from dockerhub') {
-        withDockerContainer("usero56tl/httpd:1.0"){ sh "echo 'hello world'" }
+        sh 'docker run usero56tl/httpd:1.0'
     }
 }
